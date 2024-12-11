@@ -50,7 +50,7 @@ async function submit() {
   <div class="px-6 text-gray-900 antialiased">
     <div class="mx-auto max-w-xl divide-y py-12 md:max-w-4xl">
       <div class="py-12 flex flex-col justify-center items-center">
-        <h2 class="text-2xl font-bold">Simple Regle demo</h2>
+        <h2 class="text-2xl font-bold">Simple Regle</h2>
         <div class="mt-8 w-96 max-w-md">
           <div class="grid grid-cols-1 gap-6">
             <label class="block">
@@ -82,7 +82,7 @@ async function submit() {
               />
               <FieldError :errors="r$.$fields.eventDate.$errors" />
               <ul class="text-sm text-gray-400 mt-1" v-if="r$.$fields.eventDate.$tooltips.length">
-                <li v-for="tooltip of r$.$fields.eventDate.$tooltips">{{ tooltip }}</li>
+                <li v-for="tooltip of r$.$fields.eventDate.$tooltips" :key="tooltip">{{ tooltip }}</li>
               </ul>
             </label>
             <label class="block">
