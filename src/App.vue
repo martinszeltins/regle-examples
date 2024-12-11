@@ -1,8 +1,56 @@
+<script setup lang="ts">
+import { useRegle } from '@regle/core';
+import { and, checked, dateBefore, email, minLength, required, withMessage } from '@regle/rules';
+import FieldError from './components/FieldError.vue';
+import { withTooltip } from '@regle/rules';
+
+interface Form {
+  fullName?: string;
+  email?: string;
+  eventDate?: Date;
+  eventType?: string;
+  details?: string;
+  acceptTC?: boolean;
+}
+
+const { r$ } = useRegle({} as Form, {
+  fullName: { required, minLength: minLength(6) },
+  email: { required, email },
+  eventDate: {
+    required,
+    dateBefore: withTooltip(dateBefore(new Date()), ({ $dirty }) => {
+      if (!$dirty) return 'You must put a date before today';
+      return '';
+    }),
+  },
+  eventType: { required },
+  details: {
+    minLength: withMessage(
+      minLength(100),
+      ({ $value, $params: [min] }) => `Your details are too short: ${$value?.length}/${min}`
+    ),
+  },
+  acceptTC: {
+    $autoDirty: false,
+    required: withMessage(and(required, checked), 'You must accept the terms and conditions'),
+  },
+});
+
+async function submit() {
+  const { result, data } = await r$.$validate();
+  if (result) {
+    alert('Your form is valid!');
+    console.log(data);
+    //           ^ Hover type here to see type safe result
+  }
+}
+</script>
+
 <template>
   <div class="px-6 text-gray-900 antialiased">
     <div class="mx-auto max-w-xl divide-y py-12 md:max-w-4xl">
       <div class="py-12 flex flex-col justify-center items-center">
-        <h2 class="text-2xl font-bold">Simple</h2>
+        <h2 class="text-2xl font-bold">Simple Regle demo</h2>
         <div class="mt-8 w-96 max-w-md">
           <div class="grid grid-cols-1 gap-6">
             <label class="block">
@@ -33,6 +81,9 @@
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               />
               <FieldError :errors="r$.$fields.eventDate.$errors" />
+              <ul class="text-sm text-gray-400 mt-1" v-if="r$.$fields.eventDate.$tooltips.length">
+                <li v-for="tooltip of r$.$fields.eventDate.$tooltips">{{ tooltip }}</li>
+              </ul>
             </label>
             <label class="block">
               <span class="text-gray-700">What type of event is it?</span>
@@ -72,9 +123,15 @@
                 </div>
               </div>
             </div>
-            <div class="flex justify-end">
+            <div class="flex justify-between">
               <button
                 class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                @click="r$.$resetAll"
+              >
+                Reset
+              </button>
+              <button
+                class="bg-indigo-500 text-white hover:bg-indigo-600 font-semibold py-2 px-4 rounded shadow"
                 @click="submit"
               >
                 Submit
@@ -86,40 +143,5 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useRegle } from '@regle/core';
-import { and, checked, dateBefore, email, minLength, required, withMessage } from '@regle/rules';
-import FieldError from './components/FieldError.vue';
-
-interface Form {
-  fullName?: string;
-  email?: string;
-  eventDate?: Date;
-  eventType?: string;
-  details?: string;
-  acceptTC?: boolean;
-}
-
-const { r$ } = useRegle({} as Form, {
-  fullName: { required, minLength: minLength(6) },
-  email: { required, email },
-  eventDate: { required, dateBefore: dateBefore(new Date()) },
-  eventType: { required },
-  details: { minLength: minLength(100) },
-  acceptTC: {
-    required: withMessage(and(required, checked), 'You must accept the terms and conditions'),
-  },
-});
-
-async function submit() {
-  const { result, data } = await r$.$validate();
-  if (result) {
-    alert('Your form is valid!');
-    console.log(data);
-    //           ^ Hover type here to see type safe result
-  }
-}
-</script>
 
 <style lang="scss" scoped></style>
