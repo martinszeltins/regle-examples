@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@regle/core':
-        specifier: 0.4.0
-        version: 0.4.0(vue@3.5.11)
+        specifier: 0.4.1
+        version: 0.4.1(vue@3.5.11)
       '@regle/rules':
-        specifier: 0.4.0
-        version: 0.4.0(vue@3.5.11)
+        specifier: 0.4.1
+        version: 0.4.1(vue@3.5.11)
       vue:
         specifier: 3.5.11
         version: 3.5.11
@@ -245,13 +245,13 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@regle/core@0.4.0':
-    resolution: {integrity: sha512-xGD877+PCgUA8IFL5HaIgD3xJMOxNFw8OXB7CWWxtos4hbOPDll4df62r2ttkWBqxVb/pgzOPK1nzPhpiLGADA==}
+  '@regle/core@0.4.1':
+    resolution: {integrity: sha512-wJahOvHJ47WHPeXtPaD9imempJWKP3G5b3Va+1oowjqeMaOKvdQevyBYG0nkDqTRQeyitnhEZF157XYICJKgIQ==}
     peerDependencies:
       vue: ^3.1.0
 
-  '@regle/rules@0.4.0':
-    resolution: {integrity: sha512-LMIwQvNW5H5t+LpS8kcbk4Y+TiI0DrmWYYPCeFPLDLRZ3JHDMkduM1bPtOx3y19aRCbyLY9d7gqgbf4OkfTBLA==}
+  '@regle/rules@0.4.1':
+    resolution: {integrity: sha512-Ba/YJ78pMeRG/LZaQ4JQyM1gRtSbmVE/BM2hovAKQcAIxRRsWGgYk/fxNMBe7At5J5N6C3xEpxXzDDonpweFjA==}
 
   '@rollup/rollup-android-arm-eabi@4.28.1':
     resolution: {integrity: sha512-2aZp8AES04KI2dy3Ss6/MDjXbwBzj+i0GqKtWXgw2/Ma6E4jJvujryO6gJAghIRVz7Vwr9Gtl/8na3nDUKpraQ==}
@@ -1020,13 +1020,13 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@regle/core@0.4.0(vue@3.5.11)':
+  '@regle/core@0.4.1(vue@3.5.11)':
     dependencies:
       vue: 3.5.11
 
-  '@regle/rules@0.4.0(vue@3.5.11)':
+  '@regle/rules@0.4.1(vue@3.5.11)':
     dependencies:
-      '@regle/core': 0.4.0(vue@3.5.11)
+      '@regle/core': 0.4.1(vue@3.5.11)
     transitivePeerDependencies:
       - vue
 
